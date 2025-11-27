@@ -15,7 +15,7 @@
       font-family: system-ui, sans-serif;
     }
 
-    /* SIMPLE GREEN GROUND (RESTORED VERSION) */
+    /* SIMPLE GREEN GROUND */
     .ground {
       position: absolute;
       bottom: 0;
@@ -27,7 +27,7 @@
     /* COW CONTAINER */
     .cow-container {
       position: absolute;
-      bottom: 30vh;
+      bottom: 27vh;
       width: 100%;
       height: 200px;
     }
@@ -38,17 +38,11 @@
       left: 100%;
       transform: translateX(-100%);
 
-      /* Larger cow based on viewport height */
+      /* base size (desktop / large screens) */
       font-size: 10vh;
       line-height: 1;
 
       animation: walk 15s linear infinite;
-    }
-
-    @media (max-width: 600px) {
-      .cow {
-        font-size: 14vh;
-      }
     }
 
     /* Cow walking animation */
@@ -67,12 +61,12 @@
       animation-iteration-count: infinite;
     }
 
-    .c1 { top: 18vh;  width: 180px; animation-duration: 32s; animation-delay: -10s; }
-    .c2 { top: 25vh; width: 220px; animation-duration: 40s; animation-delay: -5s; }
-    .c3 { top: 15vh;  width: 150px; animation-duration: 28s; animation-delay: -20s; }
-    .c4 { top: 30vh; width: 200px; animation-duration: 36s; animation-delay: -15s; }
-    .c5 { top: 22vh; width: 170px; animation-duration: 30s; animation-delay: -8s; }
-    .c6 { top: 13vh;  width: 140px; animation-duration: 45s; animation-delay: -25s; }
+    .c1 { top: 8vh;  width: 180px; animation-duration: 32s; animation-delay: -10s; }
+    .c2 { top: 15vh; width: 220px; animation-duration: 40s; animation-delay: -5s; }
+    .c3 { top: 5vh;  width: 150px; animation-duration: 28s; animation-delay: -20s; }
+    .c4 { top: 20vh; width: 200px; animation-duration: 36s; animation-delay: -15s; }
+    .c5 { top: 12vh; width: 170px; animation-duration: 30s; animation-delay: -8s; }
+    .c6 { top: 3vh;  width: 140px; animation-duration: 45s; animation-delay: -25s; }
 
     @keyframes moveCloud {
       0%   { transform: translateX(120vw); }
@@ -82,7 +76,7 @@
     /* TITLE */
     .title {
       position: absolute;
-      top: 50px;
+      top: 20px;
       left: 50%;
       transform: translateX(-50%);
       font-size: 1.5rem;
@@ -103,54 +97,54 @@
       box-sizing: border-box;
 
       pointer-events: none;
-      
+
       box-shadow:
         0 0 0 15px #7a5737 inset,
         0 0 30px rgba(0,0,0,0.5);
     }
-/* ⭐ MOBILE LAYOUT FIX (makes everything look normal on phones) */
-@media (max-width: 600px) {
 
-  /* Smaller frame so it doesn't cover half the screen */
-  .frame {
-    border-width: 20px;
-    border-radius: 12px;
-    box-shadow:
-      0 0 0 8px #7a5737 inset,
-      0 0 15px rgba(0,0,0,0.4);
-  }
+    /* ============= MOBILE LAYOUT FIXES ============= */
+    @media (max-width: 600px) {
 
-  /* Lower the title */
-  .title {
-    top: 35px;
-    font-size: 1.2rem;
-  }
+      /* thinner frame on phones */
+      .frame {
+        border-width: 20px;
+        border-radius: 12px;
+        box-shadow:
+          0 0 0 8px #7a5737 inset,
+          0 0 15px rgba(0,0,0,0.4);
+      }
 
-  /* Normalize cloud positions */
-  .c1 { top: 12vh; }
-  .c2 { top: 18vh; }
-  .c3 { top: 9vh; }
-  .c4 { top: 22vh; }
-  .c5 { top: 14vh; }
-  .c6 { top: 6vh; }
+      /* move title down a bit & slightly smaller */
+      .title {
+        top: 40px;
+        font-size: 1.2rem;
+      }
 
-  /* Reduce ground height so phone doesn't get crowded */
-  .ground {
-    height: 25vh;
-  }
+      /* adjust clouds a bit lower so they aren't hugging the frame */
+      .c1 { top: 12vh; }
+      .c2 { top: 18vh; }
+      .c3 { top: 9vh;  }
+      .c4 { top: 22vh; }
+      .c5 { top: 14vh; }
+      .c6 { top: 6vh;  }
 
-  /* Move the cow up a bit (since ground is smaller) */
-  .cow-container {
-    bottom: 25vh;
-    height: 180px;
-  }
+      /* more ground so no extra sky strip at bottom */
+      .ground {
+        height: 35vh;
+      }
 
-  /* Normalize cow size so it's not gigantic or tiny */
-  .cow {
-    font-size: 12vh;    /* Good size for phones */
-  }
-}
+      /* move cow up to stay standing nicely on new ground */
+      .cow-container {
+        bottom: 35vh;
+        height: 200px;
+      }
 
+      /* make cow bigger on phones */
+      .cow {
+        font-size: 16vh;
+      }
+    }
   </style>
 </head>
 <body>
@@ -170,7 +164,7 @@
     <div class="cow">🐄</div>
   </div>
 
-  <!-- SIMPLE GREEN GROUND -->
+  <!-- GROUND -->
   <div class="ground"></div>
 
   <!-- FRAME -->
@@ -178,6 +172,8 @@
 
 </body>
 </html>
+
+
 
 
 
