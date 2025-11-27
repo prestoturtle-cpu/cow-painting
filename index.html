@@ -39,21 +39,30 @@
       height: 30vh;     /* vertical lane for the cow to walk in */
     }
 
-    .cow {
-      position: absolute;
-      bottom: 0;
-      left: 100%;                 /* start at the right edge of the lane */
-      transform: translateX(-100%);
-      font-size: 14vh;            /* nice, big cow on all screens */
-      line-height: 1;
-      animation: walk 12s linear infinite;
-    }
+    /* COW CONTAINER – sits exactly on grass */
+.cow-container {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  bottom: 30vh;
+  height: 30vh;
+}
 
-    /* Cow walking animation – same idea as clouds: move across the screen */
-    @keyframes walk {
-      0%   { transform: translateX(-100%); }   /* fully at right edge */
-      100% { transform: translateX(-1800%); }  /* walk all the way across & off left */
-    }
+/* COW – properly sized + smooth infinite walk */
+.cow {
+  position: absolute;
+  bottom: 0;
+  font-size: 12vh;
+  line-height: 1;
+  animation: walk 10s linear infinite;
+}
+
+/* SMOOTH LEFT→RIGHT WALK LOOP */
+@keyframes walk {
+  0%   { transform: translateX(100vw); }   /* start off-screen right */
+  100% { transform: translateX(-100vw); }  /* walk off-screen left */
+}
+
 
     /* CLOUDS (unchanged behavior – they already look right for you) */
     .cloud {
@@ -150,6 +159,7 @@
 
 </body>
 </html>
+
 
 
 
