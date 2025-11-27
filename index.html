@@ -21,37 +21,41 @@
       background: linear-gradient(#87ceeb, #e0f7ff);
     }
 
-    /* SIMPLE GREEN GROUND */
+    /* SIMPLE GREEN GROUND: bottom 30% of screen */
     .ground {
       position: absolute;
       left: 0;
       bottom: 0;
       width: 100%;
-      height: 32vh;
+      height: 30vh;
       background: #62a34f;
+      z-index: 0;
     }
 
-   /* COW – directly placed above the grass */
-.cow {
-  position: absolute;
-  bottom: 32vh;        /* ALWAYS sits on grass */
-  left: 0;
-  font-size: 12vh;
-  line-height: 1;
-  animation: walk 25s linear infinite;
-}
+    /* COW directly above the grass */
+    .cow {
+      position: absolute;
+      bottom: 30vh;          /* sits on top edge of grass */
+      left: 0;
+      font-size: 12vh;
+      line-height: 1;
+      z-index: 2;
 
-@keyframes walk {
-  0%   { transform: translateX(100vw); }
-  100% { transform: translateX(-100vw); }
-}
+      /* ⭐ slower walk across the screen */
+      animation: walk 22s linear infinite;
+    }
 
+    /* Walk from off-screen right → off-screen left, then repeat */
+    @keyframes walk {
+      0%   { transform: translateX(100vw); }
+      100% { transform: translateX(-100vw); }
+    }
 
-    /* CLOUDS (same behavior you liked) */
+    /* CLOUDS */
     .cloud {
       position: absolute;
       opacity: 0.9;
-      z-index: -1; /* behind cow/ground/frame */
+      z-index: 1; /* behind cow, in front of sky */
       animation-name: moveCloud;
       animation-timing-function: linear;
       animation-iteration-count: infinite;
@@ -88,13 +92,11 @@
       left: 0;
       width: 100%;
       height: 100%;
-
       border: 35px solid #5e3b1e;
       border-radius: 20px;
       box-sizing: border-box;
       pointer-events: none;
       z-index: 3;
-
       box-shadow:
         0 0 0 15px #7a5737 inset,
         0 0 30px rgba(0,0,0,0.5);
@@ -114,7 +116,7 @@
 
       .cow {
         font-size: 14vh;        /* a bit bigger on phones */
-        animation-duration: 22s; /* slightly slower on mobile */
+        animation-duration: 24s; /* slightly slower on mobile */
       }
     }
   </style>
@@ -132,9 +134,7 @@
   <img src="Pictures/cloud.png" class="cloud c6">
 
   <!-- COW -->
-  <div class="cow-container">
-    <div class="cow">🐄</div>
-  </div>
+  <div class="cow">🐄</div>
 
   <!-- GROUND -->
   <div class="ground"></div>
@@ -144,7 +144,6 @@
 
 </body>
 </html>
-
 
 
 
