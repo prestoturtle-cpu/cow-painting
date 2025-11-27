@@ -2,10 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+
+  <!-- ⭐ Prevent iPhone from zooming the page -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Walking Cow</title>
+
   <style>
-    body {
+
+    /* ⭐ FORCE FULL WIDTH ON ALL DEVICES */
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
       margin: 0;
+      padding: 0;
+    }
+
+    body {
       height: 100vh;
       display: flex;
       justify-content: center;
@@ -19,7 +33,7 @@
     .ground {
       position: absolute;
       bottom: 0;
-      width: 100%;
+      width: 100%;           /* ⭐ FULL WIDTH */
       height: 30vh;
       background: #62a34f;
     }
@@ -28,7 +42,7 @@
     .cow-container {
       position: absolute;
       bottom: 27vh;
-      width: 100%;
+      width: 100%;           /* ⭐ FULL WIDTH */
       height: 200px;
     }
 
@@ -37,15 +51,12 @@
       bottom: 0;
       left: 100%;
       transform: translateX(-100%);
-
-      /* base size (desktop / large screens) */
-      font-size: 10vh;
+      font-size: 10vh;       /* Desktop size */
       line-height: 1;
 
       animation: walk 15s linear infinite;
     }
 
-    /* Cow walking animation */
     @keyframes walk {
       0% { transform: translateX(-1%); }
       100% { transform: translateX(-1600%); }
@@ -89,7 +100,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 100vw;
+      width: 100%;               /* ⭐ FULL WIDTH FIX */
       height: 100vh;
 
       border: 35px solid #5e3b1e;
@@ -103,10 +114,9 @@
         0 0 30px rgba(0,0,0,0.5);
     }
 
-    /* ============= MOBILE LAYOUT FIXES ============= */
+    /* ⭐ MOBILE LAYOUT FIXES */
     @media (max-width: 600px) {
 
-      /* thinner frame on phones */
       .frame {
         border-width: 20px;
         border-radius: 12px;
@@ -115,36 +125,32 @@
           0 0 15px rgba(0,0,0,0.4);
       }
 
-      /* move title down a bit & slightly smaller */
       .title {
         top: 40px;
         font-size: 1.2rem;
       }
 
-      /* adjust clouds a bit lower so they aren't hugging the frame */
       .c1 { top: 12vh; }
       .c2 { top: 18vh; }
-      .c3 { top: 9vh;  }
+      .c3 { top: 9vh; }
       .c4 { top: 22vh; }
       .c5 { top: 14vh; }
-      .c6 { top: 6vh;  }
+      .c6 { top: 6vh; }
 
-      /* more ground so no extra sky strip at bottom */
       .ground {
         height: 35vh;
       }
 
-      /* move cow up to stay standing nicely on new ground */
       .cow-container {
         bottom: 35vh;
         height: 200px;
       }
 
-      /* make cow bigger on phones */
       .cow {
         font-size: 16vh;
       }
     }
+
   </style>
 </head>
 <body>
@@ -172,6 +178,8 @@
 
 </body>
 </html>
+
+
 
 
 
