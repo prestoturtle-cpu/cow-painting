@@ -1,116 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Walking Cow</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Walking Cow</title>
+  <style>
+    /* Base page setup */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: system-ui, sans-serif;
+    }
 
-<style>
-  /* FULL PAGE */
-  body {
-    margin: 0;
-    overflow: hidden;
-    background: #87ceeb; /* fallback sky blue */
-  }
+    body {
+      position: relative;   /* stage for everything */
+      background: #5e3b1e;  /* behind the frame, doesn't really show */
+    }
 
-  /* SKY LAYER (always behind everything) */
-  .sky {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(#87ceeb, #ffffff);
-    z-index: 1;
-  }
+    /* ⭐ BLUE SKY LAYER INSIDE THE FRAME */
+    .canvas {
+      position: absolute;
+      inset: 0;  /* top:0; right:0; bottom:0; left:0 */
+      background: linear-gradient(#4aa3ff, #bde9ff); /* stronger blue */
+      z-index: 0;
+    }
 
-  /* CLOUDS */
-  .cloud {
-    position: absolute;
-    top: 20%;
-    width: 200px;
-    opacity: 0.9;
-    animation: drift 25s linear infinite;
-    z-index: 3;
-  }
+    /* GREEN GROUND */
+    .ground {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 30vh;
+      background: #62a34f;
+      z-index: 1;
+    }
 
-  .cloud2 {
-    top: 35%;
-    animation-duration: 35s;
-  }
+    /* COW directly above the grass */
+    .cow {
+      position: absolute;
+      bottom: 30vh;          /* sits on top edge of grass */
+      left: 0;
+      font-size: 12vh;
+      line-height: 1;
+      z-index: 2;
 
-  @keyframes drift {
-    from { left: -250px; }
-    to { left: 110%; }
-  }
+      /* slower walk across the screen */
+      animation: walk 25s linear infinite;
+    }
 
-  /* GRASS FIXED TO BOTTOM */
-  .grass {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 30%;
-    background: #4caf50;
-    z-index: 2;
-  }
+    /* Walk from off-screen right → off-screen left, then repeat */
+    @keyframes walk {
+      0%   { transform: translateX(100vw); }
+      100% { transform: translateX(-100vw); }
+    }
 
-  /* FRAME AROUND EVERYTHING */
-  .frame {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 40px solid #5a2d0c;
-    box-sizing: border-box;
-    z-index: 10;
-    pointer-events: none;
-  }
+    /* CLOUDS */
+    .cloud {
+      position: absolute;
+      opacity: 0.9;
+      z-index: 1; /* in the sky, behind cow/title */
+      animation-name: moveCloud;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
 
-  /* COW WALKING */
-  .cow {
-    position: absolute;
-    bottom: 30%; /* sits EXACTLY on top of grass */
-    left: -150px;
-    width: 150px;
-    animation: walk 18s linear infinite;
-    z-index: 4;
-  }
+    .c1 { top: 8vh;  width: 180px; animation-duration: 32s; animation-delay: -10s; }
+    .c2 { top: 15vh; width: 220px; animation-duration: 40s; animation-delay: -5s; }
+    .c3 { top: 5vh;  width: 150px; animation-duration: 28s; animation-delay: -20s; }
+    .c4 { top: 20vh; width: 200px; animation-duration: 36s; animation-delay: -15s; }
+    .c5 { top: 12vh; width: 170px; animation-duration: 30s; animation-delay: -8s; }
+    .c6 { top: 3vh;  width: 140px; animation-duration: 45s; animation-delay: -25s; }
 
-  @keyframes walk {
-    from { left: -150px; }
-    to { left: 110%; }
-  }
+    @keyframes moveCloud {
+      0%   { transform: translateX(120vw); }
+      100% { transform: translateX(-1000px); }
+    }
 
-  /* TITLE */
-  h1 {
-    position: absolute;
-    top: 10px;
-    left: 20px;
-    z-index: 11;
-    font-size: 24px;
-    color: #333;
-  }
-</style>
+    /* TITLE */
+    .title {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.5rem;
+      color: #222;
+      text-shadow: 0 0 4px rgba(255,255,255,0.7);
+      z-index: 2;
+    }
+
+    /* BROWN WOOD FRAME */
+    .frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 35px solid #5e3b1e;
+      border-radius: 20px;
+      box-sizing: border-box;
+      pointer-events: none;
+      z-index: 3;
+      box-shadow:
+        0 0 0 15px #7a5737 inset,
+        0 0 30px rgba(0,0,0,0.5);
+    }
+
+    /* Simple mobile tweaks */
+    @media (max-width: 600px) {
+      .frame {
+        border-width: 20px;
+        border-radius: 12px;
+      }
+
+      .title {
+        top: 40px;
+        font-size: 1.2rem;
+      }
+
+      .cow {
+        font-size: 14vh;        /* a bit bigger on phones */
+        animation-duration: 27s; /* slightly slower on mobile */
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-  <div class="sky"></div>
+  <!-- BLUE SKY AREA -->
+  <div class="canvas"></div>
 
-  <img src="cloud.png" class="cloud">
-  <img src="cloud.png" class="cloud cloud2">
+  <div class="title">🐄 Moo! Watch me walk 🐄</div>
 
-  <div class="grass"></div>
+  <!-- CLOUDS -->
+  <img src="Pictures/cloud.png" class="cloud c1">
+  <img src="Pictures/cloud.png" class="cloud c2">
+  <img src="Pictures/cloud.png" class="cloud c3">
+  <img src="Pictures/cloud.png" class="cloud c4">
+  <img src="Pictures/cloud.png" class="cloud c5">
+  <img src="Pictures/cloud.png" class="cloud c6">
 
-  <img src="cow.png" class="cow">
+  <!-- COW -->
+  <div class="cow">🐄</div>
 
-  <h1>🐄 Moo! Watch me walk</h1>
+  <!-- GROUND -->
+  <div class="ground"></div>
 
+  <!-- FRAME -->
   <div class="frame"></div>
 
 </body>
 </html>
+
 
 
 
