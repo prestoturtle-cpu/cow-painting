@@ -2,55 +2,85 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Walking Cow</title>
   <style>
-    body {
+    /* Base page setup */
+    html, body {
       margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(#87ceeb, #e0f7ff); /* sky */
+      padding: 0;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
       font-family: system-ui, sans-serif;
     }
 
+    body {
+      position: relative;   /* stage for everything */
+      background: #5e3b1e;  /* behind the frame, doesn't really show */
+    }
+
+    /* ⭐ BLUE SKY LAYER INSIDE THE FRAME */
+    .canvas {
+      position: absolute;
+      inset: 0;  /* top:0; right:0; bottom:0; left:0 */
+      background: linear-gradient(#4aa3ff, #bde9ff); /* stronger blue */
+      z-index: 0;
+    }
+
+    /* GREEN GROUND */
     .ground {
       position: absolute;
+      left: 0;
       bottom: 0;
       width: 100%;
       height: 30vh;
       background: #62a34f;
+      z-index: 1;
     }
 
-    .cow-container {
-      position: relative;
-      width: 100%;
-      max-width: 600px;
-      height: 200px;
-    }
-
+    /* COW directly above the grass */
     .cow {
       position: absolute;
-      bottom: 20px;
-      font-size: 4rem; /* bigger cow emoji */
-      animation: walk 4s linear infinite;
-      /* If you use an image instead:
-         width: 100px;
-         height: auto;
-      */
+      bottom: 30vh;          /* sits on top edge of grass */
+      left: 0;
+      font-size: 12vh;
+      line-height: 1;
+      z-index: 2;
+
+      /* slower walk across the screen */
+      animation: walk 25s linear infinite;
     }
 
-    /* Simple left-to-right walking animation */
+    /* Walk from off-screen right → off-screen left, then repeat */
     @keyframes walk {
-      0% {
-        transform: translateX(-20%);
-      }
-      100% {
-        transform: translateX(120%);
-      }
+      0%   { transform: translateX(100vw); }
+      100% { transform: translateX(-100vw); }
     }
 
+    /* CLOUDS */
+    .cloud {
+      position: absolute;
+      opacity: 0.9;
+      z-index: 1; /* in the sky, behind cow/title */
+      animation-name: moveCloud;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    .c1 { top: 8vh;  width: 180px; animation-duration: 32s; animation-delay: -10s; }
+    .c2 { top: 15vh; width: 220px; animation-duration: 40s; animation-delay: -5s; }
+    .c3 { top: 5vh;  width: 150px; animation-duration: 28s; animation-delay: -20s; }
+    .c4 { top: 20vh; width: 200px; animation-duration: 36s; animation-delay: -15s; }
+    .c5 { top: 12vh; width: 170px; animation-duration: 30s; animation-delay: -8s; }
+    .c6 { top: 3vh;  width: 140px; animation-duration: 45s; animation-delay: -25s; }
+
+    @keyframes moveCloud {
+      0%   { transform: translateX(120vw); }
+      100% { transform: translateX(-1000px); }
+    }
+
+    /* TITLE */
     .title {
       position: absolute;
       top: 20px;
@@ -59,22 +89,69 @@
       font-size: 1.5rem;
       color: #222;
       text-shadow: 0 0 4px rgba(255,255,255,0.7);
+      z-index: 2;
+    }
+
+    /* BROWN WOOD FRAME */
+    .frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 35px solid #5e3b1e;
+      border-radius: 20px;
+      box-sizing: border-box;
+      pointer-events: none;
+      z-index: 3;
+      box-shadow:
+        0 0 0 15px #7a5737 inset,
+        0 0 30px rgba(0,0,0,0.5);
+    }
+
+    /* Simple mobile tweaks */
+    @media (max-width: 600px) {
+      .frame {
+        border-width: 20px;
+        border-radius: 12px;
+      }
+
+      .title {
+        top: 40px;
+        font-size: 1.2rem;
+      }
+
+      .cow {
+        font-size: 14vh;        /* a bit bigger on phones */
+        animation-duration: 27s; /* slightly slower on mobile */
+      }
     }
   </style>
 </head>
 <body>
+
+  <!-- BLUE SKY AREA -->
+  <div class="canvas"></div>
+
   <div class="title">🐄 Moo! Watch me walk 🐄</div>
 
-  <div class="cow-container">
-    <!-- Emoji version -->
-    <div class="cow">🐄</div>
+  <!-- CLOUDS -->
+  <img src="Pictures/cloud.png" class="cloud c1">
+  <img src="Pictures/cloud.png" class="cloud c2">
+  <img src="Pictures/cloud.png" class="cloud c3">
+  <img src="Pictures/cloud.png" class="cloud c4">
+  <img src="Pictures/cloud.png" class="cloud c5">
+  <img src="Pictures/cloud.png" class="cloud c6">
 
-    <!-- If you have a cow image (cow.png), use this instead:
-    <img src="cow.png" alt="Cow" class="cow">
-    -->
-  </div>
+  <!-- COW -->
+  <div class="cow">🐄</div>
 
+  <!-- GROUND -->
   <div class="ground"></div>
+
+  <!-- FRAME -->
+  <div class="frame"></div>
+
 </body>
 </html>
 
