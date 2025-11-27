@@ -108,6 +108,48 @@
         0 0 0 15px #7a5737 inset,
         0 0 30px rgba(0,0,0,0.5);
     }
+/* ⭐ MOBILE LAYOUT FIX (makes everything look normal on phones) */
+@media (max-width: 600px) {
+
+  /* Smaller frame so it doesn't cover half the screen */
+  .frame {
+    border-width: 20px;
+    border-radius: 12px;
+    box-shadow:
+      0 0 0 8px #7a5737 inset,
+      0 0 15px rgba(0,0,0,0.4);
+  }
+
+  /* Lower the title */
+  .title {
+    top: 35px;
+    font-size: 1.2rem;
+  }
+
+  /* Normalize cloud positions */
+  .c1 { top: 12vh; }
+  .c2 { top: 18vh; }
+  .c3 { top: 9vh; }
+  .c4 { top: 22vh; }
+  .c5 { top: 14vh; }
+  .c6 { top: 6vh; }
+
+  /* Reduce ground height so phone doesn't get crowded */
+  .ground {
+    height: 25vh;
+  }
+
+  /* Move the cow up a bit (since ground is smaller) */
+  .cow-container {
+    bottom: 25vh;
+    height: 180px;
+  }
+
+  /* Normalize cow size so it's not gigantic or tiny */
+  .cow {
+    font-size: 12vh;    /* Good size for phones */
+  }
+}
 
   </style>
 </head>
@@ -136,5 +178,6 @@
 
 </body>
 </html>
+
 
 
