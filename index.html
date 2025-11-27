@@ -16,52 +16,50 @@
     }
 
     body {
-      position: relative;
-      /* ⭐ BLUE SKY BACKGROUND */
+      position: relative; /* everything absolutely positioned inside this */
       background: linear-gradient(#87ceeb, #e0f7ff);
     }
 
-    /* SIMPLE GREEN GROUND */
+    /* SIMPLE GREEN GROUND – modeled like a full-width bar */
     .ground {
       position: absolute;
       left: 0;
       bottom: 0;
-      width: 100%;
+      width: 100%;      /* full width */
       height: 30vh;
       background: #62a34f;
     }
 
-    /* COW CONTAINER – lane just above the grass */
+    /* COW CONTAINER – full width lane above the grass */
     .cow-container {
       position: absolute;
       left: 0;
-      width: 100%;
-      bottom: 30vh;   /* sits exactly on top of the grass */
-      height: 30vh;
+      width: 100%;      /* full width */
+      bottom: 30vh;     /* sits on top of ground */
+      height: 30vh;     /* vertical lane for the cow to walk in */
     }
 
-    /* COW – walks across screen */
     .cow {
       position: absolute;
       bottom: 0;
-      font-size: 12vh;         /* nice size on most screens */
+      left: 100%;                 /* start at the right edge of the lane */
+      transform: translateX(-100%);
+      font-size: 14vh;            /* nice, big cow on all screens */
       line-height: 1;
-
-      /* ⭐ SLOWER WALK (increase time to slow down) */
-      animation: walk 20s linear infinite;
+      animation: walk 12s linear infinite;
     }
 
-    /* Smooth walk from right to left, looping */
+    /* Cow walking animation – same idea as clouds: move across the screen */
     @keyframes walk {
-      0%   { transform: translateX(100vw); }   /* start off-screen right */
-      100% { transform: translateX(-100vw); }  /* end off-screen left */
+      0%   { transform: translateX(-100%); }   /* fully at right edge */
+      100% { transform: translateX(-1800%); }  /* walk all the way across & off left */
     }
 
-    /* CLOUDS (same behavior you liked) */
+    /* CLOUDS (unchanged behavior – they already look right for you) */
     .cloud {
       position: absolute;
       opacity: 0.9;
-      z-index: -1; /* behind cow/ground/frame */
+      z-index: -1; /* behind cow, ground, frame */
       animation-name: moveCloud;
       animation-timing-function: linear;
       animation-iteration-count: infinite;
@@ -75,8 +73,8 @@
     .c6 { top: 3vh;  width: 140px; animation-duration: 45s; animation-delay: -25s; }
 
     @keyframes moveCloud {
-      0%   { transform: translateX(120vw); }
-      100% { transform: translateX(-1000px); }
+      0%   { transform: translateX(120vw); }   /* start off right */
+      100% { transform: translateX(-1000px); } /* float off left */
     }
 
     /* TITLE */
@@ -91,14 +89,13 @@
       z-index: 2;
     }
 
-    /* BROWN WOOD FRAME */
+    /* BROWN WOOD FRAME – modeled like a full-screen overlay */
     .frame {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-
+      width: 100%;      /* full width of body */
+      height: 100%;     /* full height of viewport */
       border: 35px solid #5e3b1e;
       border-radius: 20px;
       box-sizing: border-box;
@@ -110,7 +107,7 @@
         0 0 30px rgba(0,0,0,0.5);
     }
 
-    /* Simple mobile tweaks */
+    /* Simple mobile tweak: thin the frame a bit, keep proportions */
     @media (max-width: 600px) {
       .frame {
         border-width: 20px;
@@ -123,8 +120,7 @@
       }
 
       .cow {
-        font-size: 14vh;        /* a bit bigger on phones */
-        animation-duration: 22s; /* slightly slower on mobile */
+        font-size: 16vh; /* a little bigger on phones */
       }
     }
   </style>
@@ -154,6 +150,7 @@
 
 </body>
 </html>
+
 
 
 
