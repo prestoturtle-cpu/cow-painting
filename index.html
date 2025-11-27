@@ -2,72 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-
-  <!-- Make layout behave properly on phones -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Walking Cow</title>
   <style>
-    /* Force full-width layout, no side gaps */
+    /* Base page setup */
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
-      max-width: 100%;
-      overflow-x: hidden;
-    }
-
-    body {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(#87ceeb, #e0f7ff);
+      height: 100%;
       overflow: hidden;
       font-family: system-ui, sans-serif;
     }
 
-    /* SIMPLE GREEN GROUND */
+    body {
+      position: relative; /* everything absolutely positioned inside this */
+      background: linear-gradient(#87ceeb, #e0f7ff);
+    }
+
+    /* SIMPLE GREEN GROUND – modeled like a full-width bar */
     .ground {
       position: absolute;
+      left: 0;
       bottom: 0;
-      width: 100%;
+      width: 100%;      /* full width */
       height: 30vh;
       background: #62a34f;
     }
 
-    /* COW CONTAINER */
+    /* COW CONTAINER – full width lane above the grass */
     .cow-container {
       position: absolute;
-      bottom: 35vh;
-      width: 100%;
-      height: 200px;
+      left: 0;
+      width: 100%;      /* full width */
+      bottom: 30vh;     /* sits on top of ground */
+      height: 30vh;     /* vertical lane for the cow to walk in */
     }
 
     .cow {
       position: absolute;
       bottom: 0;
-      left: 100%;
+      left: 100%;                 /* start at the right edge of the lane */
       transform: translateX(-100%);
-
-      /* base size (desktop / large screens) */
-      font-size: 10vh;
+      font-size: 14vh;            /* nice, big cow on all screens */
       line-height: 1;
-
-      animation: walk 15s linear infinite;
+      animation: walk 12s linear infinite;
     }
 
-    /* Cow walking animation */
+    /* Cow walking animation – same idea as clouds: move across the screen */
     @keyframes walk {
-      0% { transform: translateX(-1%); }
-      100% { transform: translateX(-1600%); }
+      0%   { transform: translateX(-100%); }   /* fully at right edge */
+      100% { transform: translateX(-1800%); }  /* walk all the way across & off left */
     }
 
-    /* CLOUDS */
+    /* CLOUDS (unchanged behavior – they already look right for you) */
     .cloud {
       position: absolute;
       opacity: 0.9;
-      z-index: -1;
+      z-index: -1; /* behind cow, ground, frame */
       animation-name: moveCloud;
       animation-timing-function: linear;
       animation-iteration-count: infinite;
@@ -81,8 +73,8 @@
     .c6 { top: 3vh;  width: 140px; animation-duration: 45s; animation-delay: -25s; }
 
     @keyframes moveCloud {
-      0%   { transform: translateX(120vw); }
-      100% { transform: translateX(-1000px); }
+      0%   { transform: translateX(120vw); }   /* start off right */
+      100% { transform: translateX(-1000px); } /* float off left */
     }
 
     /* TITLE */
@@ -94,68 +86,41 @@
       font-size: 1.5rem;
       color: #222;
       text-shadow: 0 0 4px rgba(255,255,255,0.7);
+      z-index: 2;
     }
 
-    /* BROWN WOOD FRAME */
+    /* BROWN WOOD FRAME – modeled like a full-screen overlay */
     .frame {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-
+      width: 100%;      /* full width of body */
+      height: 100%;     /* full height of viewport */
       border: 35px solid #5e3b1e;
       border-radius: 20px;
       box-sizing: border-box;
-
       pointer-events: none;
+      z-index: 3;
 
       box-shadow:
         0 0 0 15px #7a5737 inset,
         0 0 30px rgba(0,0,0,0.5);
     }
 
-    /* ============= MOBILE LAYOUT FIXES ============= */
+    /* Simple mobile tweak: thin the frame a bit, keep proportions */
     @media (max-width: 600px) {
-
-      /* thinner frame on phones */
       .frame {
         border-width: 20px;
         border-radius: 12px;
-        box-shadow:
-          0 0 0 8px #7a5737 inset,
-          0 0 15px rgba(0,0,0,0.4);
       }
 
-      /* move title down a bit & slightly smaller */
       .title {
         top: 40px;
         font-size: 1.2rem;
       }
 
-      /* adjust clouds a bit lower so they aren't hugging the frame */
-      .c1 { top: 12vh; }
-      .c2 { top: 18vh; }
-      .c3 { top: 9vh;  }
-      .c4 { top: 22vh; }
-      .c5 { top: 14vh; }
-      .c6 { top: 6vh;  }
-
-      /* more ground so no extra sky strip at bottom */
-      .ground {
-        width: 100%;
-        height: 35vh;
-      }
-
-      /* move cow up to stay standing nicely on new ground */
-      .cow-container {
-        bottom: 35vh;
-        height: 200px;
-      }
-
-      /* make cow bigger on phones */
       .cow {
-        font-size: 16vh;
+        font-size: 16vh; /* a little bigger on phones */
       }
     }
   </style>
@@ -185,6 +150,8 @@
 
 </body>
 </html>
+
+
 
 
 
